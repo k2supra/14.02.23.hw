@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void add_block(int**& array, int col, int& row, int pos);
+void del_block(int**& array, int col, int& row, int pos);
 
 
 int main()
@@ -29,7 +29,7 @@ int main()
     int pos;
     cout << "Enter pos ->";
     cin >> pos;
-    add_block(array, col, row, pos);
+    del_block(array, col, row, pos);
     cout << "\nRemastered\n\n\n";
     for (int i = 0; i < row; i++)
     {
@@ -49,25 +49,19 @@ int main()
 }
 
 
-void add_block(int**& array, int col, int& row, int pos)
+void del_block(int**& array, int col, int& row, int pos)
 {
-    int* new_row = new int[col];
-    for (int i = 0; i < col; i++)
-    {
-        new_row[i] = rand() % 100;
-    }
-
-    row++;
-    int** new_arr = new int* [row];
+    int** new_arr = new int* [row - 1];
     for (int i = 0; i < pos; i++)
     {
         new_arr[i] = array[i];
     }
-    new_arr[pos - 1] = new_row;
     for (int i = pos; i < row; i++)
     {
-        new_arr[i] = array[i - 1];
+        new_arr[i - 1] = array[i];
     }
+    row--;
+    delete[] array[pos];
     delete[] array;
     array = new_arr;
 }
